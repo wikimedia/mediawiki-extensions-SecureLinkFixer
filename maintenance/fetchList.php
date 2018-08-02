@@ -39,7 +39,7 @@ class FetchList extends Maintenance {
 		// phpcs:ignore Generic.Files.LineLength
 		$feedUrl = 'https://hg.mozilla.org/mozilla-central/atom-log/tip/security/manager/ssl/nsSTSPreloadList.inc';
 		$feed = file_get_contents( $feedUrl );
-		preg_match( '!"http://hg.mozilla.org/mozilla-central/rev/([a-f0-9]*?)"!', $feed, $matches );
+		preg_match( '!"https://hg.mozilla.org/mozilla-central/rev/([a-f0-9]*?)"!', $feed, $matches );
 		if ( !isset( $matches[1] ) ) {
 			$this->fatalError( 'Unable to parse revision id for HSTS preload list' );
 		}
