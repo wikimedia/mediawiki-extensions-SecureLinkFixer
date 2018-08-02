@@ -38,50 +38,15 @@ class Hooks {
 			return;
 		}
 
-		if ( $parsed['scheme'] !== 'http' && $parsed['scheme'] !== '' ) {
+		if ( $parsed[ 'scheme' ] !== 'http' && $parsed[ 'scheme' ] !== '' ) {
 			// We only want http:// and proto-rel
 			return;
 		}
 
-		if ( self::isDomainPreloaded( $parsed['host'] ) ) {
-			$parsed['scheme'] = 'https';
-			$parsed['delimiter'] = '://';
+		if ( HSTSPreloadLookup::getInstance()->isPreloaded( $parsed[ 'host' ] ) ) {
+			$parsed[ 'scheme' ] = 'https';
+			$parsed[ 'delimiter' ] = '://';
 			$url = wfAssembleUrl( $parsed );
 		}
 	}
-
-	/**
-	 * Whether the provided host is in the HSTS preload list
-	 *
-	 * @param string $host
-	 *
-	 * @return bool
-	 */
-	private static function isDomainPreloaded( $host ) {
-		static $db;
-		if ( $db === null ) {
-			$db = include __DIR__ . '/../domains.php';
-		}
-
-		if ( isset( $db[$host] ) ) {
-			// Host is directly in the preload list
-			return true;
-		}
-		// Check if parent subdomains are preloaded
-		while ( strpos( $host, '.' ) !== false ) {
-			$host = preg_replace( '/(.*?)\./', '', $host, 1 );
-			$subdomains = $db[$host] ?? false;
-			if ( $subdomains === 1 ) {
-				return true;
-			} elseif ( $subdomains === 0 ) {
-				return false;
-			}
-			// else it's not in the db, we might need to look it up again
-		}
-
-		// @todo should we keep a negative cache?
-
-		return false;
-	}
-
 }
