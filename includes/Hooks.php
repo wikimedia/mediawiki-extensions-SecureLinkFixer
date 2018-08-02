@@ -38,14 +38,14 @@ class Hooks {
 			return;
 		}
 
-		if ( $parsed[ 'scheme' ] !== 'http' && $parsed[ 'scheme' ] !== '' ) {
+		if ( $parsed['scheme'] !== 'http' && $parsed['scheme'] !== '' ) {
 			// We only want http:// and proto-rel
 			return;
 		}
 
-		if ( HSTSPreloadLookup::getInstance()->isPreloaded( $parsed[ 'host' ] ) ) {
-			$parsed[ 'scheme' ] = 'https';
-			$parsed[ 'delimiter' ] = '://';
+		if ( HSTSPreloadLookup::getInstance()->isPreloaded( $parsed['host'] ) ) {
+			$parsed['scheme'] = 'https';
+			$parsed['delimiter'] = '://';
 			$url = wfAssembleUrl( $parsed );
 		}
 	}
