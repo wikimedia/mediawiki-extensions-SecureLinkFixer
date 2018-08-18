@@ -19,6 +19,7 @@
 namespace MediaWiki\SecureLinkFixer;
 
 use Maintenance;
+use Wikimedia\StaticArrayWriter;
 
 $IP = getenv( 'MW_INSTALL_PATH' );
 if ( $IP === false ) {
@@ -71,7 +72,8 @@ HEADER;
 				$data[$exploded[0]] = (int)$exploded[1];
 			}
 		}
-		$code = wfMakeStaticArrayFile( $data, $header );
+		$writer = new StaticArrayWriter();
+		$code = $writer->create( $data, $header );
 		file_put_contents( __DIR__ . '/../domains.php', $code );
 		$this->output( "Updated domains.php\n" );
 	}
