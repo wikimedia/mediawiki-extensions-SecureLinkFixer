@@ -18,6 +18,7 @@
 
 namespace MediaWiki\SecureLinkFixer\Test;
 
+use MediaWiki\SecureLinkFixer\ListFetcher;
 use MediaWikiTestCase;
 
 /**
@@ -25,6 +26,16 @@ use MediaWikiTestCase;
  * @coversNothing
  */
 class DomainsTest extends MediaWikiTestCase {
+
+	public function testReproducibility() {
+		$domains = file_get_contents( __DIR__ . '/../../domains.php' );
+		preg_match( '/mozilla-central@([0-9a-f]*?) \((.*?)\)/', $domains, $matches );
+		$this->assertCount( 3, $matches );
+		[ , $rev, $date ] = $matches;
+		$lf = new ListFetcher();
+		$expected = $lf->fetchList( $rev, $date );
+		$this->assertSame( $expected, $domains );
+	}
 
 	public function testDomains() {
 		$domains = require __DIR__ . '/../../domains.php';
