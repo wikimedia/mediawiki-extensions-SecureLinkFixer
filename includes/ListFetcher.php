@@ -53,7 +53,7 @@ class ListFetcher {
 	 *
 	 * @return string[]
 	 */
-	public function getLatestInfo() : array {
+	public function getLatestInfo(): array {
 		// phpcs:ignore Generic.Files.LineLength
 		$feedUrl = 'https://hg.mozilla.org/mozilla-central/atom-log/tip/security/manager/ssl/nsSTSPreloadList.inc';
 		$feed = file_get_contents( $feedUrl );
