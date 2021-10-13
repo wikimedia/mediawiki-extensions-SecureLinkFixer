@@ -19,13 +19,13 @@
 namespace MediaWiki\SecureLinkFixer\Test;
 
 use MediaWiki\SecureLinkFixer\ListFetcher;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * Integration test and sanity check for domains.php
  * @coversNothing
  */
-class DomainsTest extends MediaWikiTestCase {
+class DomainsTest extends MediaWikiIntegrationTestCase {
 
 	public function testReproducibility() {
 		$domains = file_get_contents( __DIR__ . '/../../domains.php' );
