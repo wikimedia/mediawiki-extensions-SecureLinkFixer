@@ -36,6 +36,7 @@ class BenchLookup extends Benchmarker {
 	public function __construct() {
 		parent::__construct();
 		$this->addDescription( 'Benchmark for HSTSPreloadLookup' );
+		$this->requireExtension( 'SecureLinkFixer' );
 	}
 
 	public function execute() {
