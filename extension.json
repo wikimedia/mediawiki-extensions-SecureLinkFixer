@@ -16,8 +16,19 @@
 	"MessagesDirs": {
 		"SecureLinkFixer": "i18n"
 	},
-	"Hooks": {
-		"LinkerMakeExternalLink": "MediaWiki\\SecureLinkFixer\\Hooks::onLinkerMakeExternalLink"
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\SecureLinkFixer\\Hooks",
+			"services": [
+				"HSTSPreloadLookup"
+			]
+		}
 	},
+	"Hooks": {
+		"LinkerMakeExternalLink": "main"
+	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"manifest_version": 2
 }

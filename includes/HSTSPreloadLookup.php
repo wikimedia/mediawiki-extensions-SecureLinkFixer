@@ -26,20 +26,6 @@ class HSTSPreloadLookup {
 	private $domains;
 
 	/**
-	 * @todo turn into proper MWServices thing
-	 * @codeCoverageIgnore
-	 * @return HSTSPreloadLookup
-	 */
-	public static function getInstance() {
-		static $instance;
-		if ( !$instance ) {
-			$instance = new self( require __DIR__ . '/../domains.php' );
-		}
-
-		return $instance;
-	}
-
-	/**
 	 * @param array $domains
 	 */
 	public function __construct( array $domains ) {
