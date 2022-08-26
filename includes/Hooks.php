@@ -47,7 +47,7 @@ class Hooks implements LinkerMakeExternalLinkHook {
 	public function onLinkerMakeExternalLink(
 		&$url, &$text, &$link, &$attribs, $linkType
 	) {
-		if ( strpos( $url, 'https://' ) === 0 ) {
+		if ( str_starts_with( $url, 'https://' ) ) {
 			// Already HTTPS
 			return;
 		}

@@ -43,15 +43,17 @@ class HSTSPreloadLookup {
 			return true;
 		}
 		// Check if parent subdomains are preloaded
-		while ( strpos( $host, '.' ) !== false ) {
-			$host = preg_replace( '/(.*?)\./', '', $host, 1 );
-			$subdomains = $this->domains[$host] ?? false;
-			if ( $subdomains === 1 ) {
-				return true;
-			} elseif ( $subdomains === 0 ) {
-				return false;
+		$offset = strpos( $host, '.' );
+		while ( $offset !== false ) {
+			$parentdomain = substr( $host, $offset + 1 );
+			if ( isset( $this->domains[$parentdomain] ) ) {
+				// This subdomain is directly in the preload list, returns true when subdomains supports https
+				return (bool)$this->domains[$parentdomain];
 			}
 			// else it's not in the db, we might need to look it up again
+
+			// Find the next parent subdomain
+			$offset = strpos( $host, '.', $offset + 1 );
 		}
 
 		// @todo should we keep a negative cache?
