@@ -20,7 +20,8 @@
 		"main": {
 			"class": "MediaWiki\\SecureLinkFixer\\Hooks",
 			"services": [
-				"HSTSPreloadLookup"
+				"HSTSPreloadLookup",
+				"UrlUtils"
 			]
 		}
 	},
