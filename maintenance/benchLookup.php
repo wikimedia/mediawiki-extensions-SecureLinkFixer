@@ -19,7 +19,6 @@
 namespace MediaWiki\SecureLinkFixer;
 
 use MediaWiki\Maintenance\Benchmarker;
-use MediaWiki\MediaWikiServices;
 use const RUN_MAINTENANCE_IF_MAIN;
 
 $IP = getenv( 'MW_INSTALL_PATH' );
@@ -41,7 +40,7 @@ class BenchLookup extends Benchmarker {
 	}
 
 	public function execute() {
-		$lookup = MediaWikiServices::getInstance()->getService( 'HSTSPreloadLookup' );
+		$lookup = $this->getServiceContainer()->getService( 'HSTSPreloadLookup' );
 		$domains = [
 			// Need to traverse up one domain to find it
 			'foobar.dev',
